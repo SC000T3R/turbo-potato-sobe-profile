@@ -1,17 +1,24 @@
-// require('dotenv').config()
+
 const express = require('express')
 const app = express()
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const uri = process.env.MONGO_URI;
-
 const port = process.env.PORT || 3000;
+const bodyParser = require('body-parser')
 
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + `/public`))
 
 
 app.get('/', function (req, res) {
   res.sendFile('index.html')
+})
+
+app.post('/saveMyName', (req,res)=>{
+  console.log('did we hit the endpoint');
+
+  console.log(req.body);
+
+  res.redirect('/ejs');
 })
 
 app.get('/nodemon', function (req, res) {
@@ -49,4 +56,4 @@ app.listen(
 //   });
 // });
 
-app.listen(3000)
+// app.listen(3000)
