@@ -6,8 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-
-    <h1>waddup</h1>
+    <h1>Im in ejs</h1>
+    <br>
+    <a href="/">static html</a>
+    
+    <% ejsResult.forEach((value,index)=>{ %> 
+    
+      <p><%=value.post %></p>
+    
+    <% }) %> 
     
 </body>
 </html>
