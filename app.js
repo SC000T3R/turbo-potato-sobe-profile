@@ -18,8 +18,22 @@ app.post('/saveMyName', (req,res)=>{
 
   console.log(req.body);
 
-  res.redirect('/ejs');
+  // res.redirect('/ejs');
+
+  res.render('indexy', {pageTitle: req.body.myName});
 })
+
+app.get('/saveMyNameGet', (req,res)=>{
+  console.log('did we get the endpoint');
+
+  console.log(req.query);
+
+  res.redirect('/ejs');
+
+})
+
+
+
 
 app.get('/nodemon', function (req, res) {
   res.send('look ma, no kill process')
