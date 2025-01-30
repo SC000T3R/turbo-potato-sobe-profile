@@ -34,6 +34,32 @@ async function run() {
 }
 run().catch(console.dir);
 
+async function getData() {
+  
+  await client.connect();
+  let collection = await client.db("luke-turbo-potato-sobie-profile").collection("luke-turbo-potato-sobie-profile");
+  
+  let results = await collection.find({}).toArray();
+  
+  console.log(results);
+
+  return results;
+  
+    // res.send(results).status(200);
+
+}
+
+getData();
+
+app.get('/read', async function (req, res) {
+  let getDataResults = await getData();
+  console.log(getDataResults);
+  res.render('songs', { songData : getDataResults} );
+})
+
+
+
+
 
 app.get('/', function (req, res) {
   res.sendFile('index.html')
@@ -89,9 +115,9 @@ app.listen(
 
 //   console.log(result);
 
-//   res.render('index', {
+//   res.render('indexy', {
 //     ejsResult : result
 //   });
 // });
 
-// app.listen(3000)
+app.listen(3000)
