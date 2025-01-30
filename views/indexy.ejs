@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%=pageTitle></title>
 </head>
 <body>
     <h1>Im in ejs</h1>
-    <br>
-    <a href="/">static html</a>
+   
+    <!-- <a href="/">static html</a> -->
+
+    <h2>Here is a post method</h2>
+    <form method="POST" action="/saveMyName">
+        <input name="myName">
+        <input type="submit" value="Save my name!">
+    </form>
+
+    <h2>Here is a get method</h2>
+    <form method="GET" action="/saveMyNameGet">
+        <input name="myNameGet">
+        <input type="submit" value="Save my name!">
+    </form>
     
-    <% ejsResult.forEach((value,index)=>{ %> 
-    
-      <p><%=value.post %></p>
-    
-    <% }) %> 
     
 </body>
 </html>
