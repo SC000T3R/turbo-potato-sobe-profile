@@ -1,5 +1,7 @@
 
 const express = require('express')
+require('dotenv').config()
+const shajs = require('sha.js')
 const app = express()
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URI;
@@ -20,6 +22,8 @@ const client = new MongoClient(uri, {
   }
 })
 
+console.log(shajs('sha256').update('cat').digest('hex'));
+
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -32,7 +36,28 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+// run().catch(console.dir);
+
+async function getData() {
+  await client.connect();
+  let collection = await client.db("guitar-app-database").collection("guitar-app-songs");
+
+  let results = await collection.find({}).toArray();
+
+  console.log(results);
+  return results;
+
+}
+
+app.get('/read', async function (req, res) {
+  let getDataResults = await getData();
+  console.log(getDataResults);
+  res.render('songs', 
+    { songData : getDataResults} );
+
+})
+
+
 
 
 app.get('/', function (req, res) {
@@ -65,7 +90,7 @@ app.get('/nodemon', function (req, res) {
 
 
 // //endpoint, middleware(s)
-app.get('/HelloRender', function (req, res) {
+app.get('/helloRender', function (req, res) {
   res.send('Hello Express from Real World<br><a href="/">back to home</a>')
 })
 
