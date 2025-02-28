@@ -107,10 +107,12 @@
                     <%= result.cheese %>
                 </p>
                 <p><strong>Toppings:</strong>
-                    <%= result.toppings.length> 0 ? result.toppings.join(', ') : "No toppings selected" %>
+                    <%= (result.toppings && result.toppings.length> 0) ? result.toppings.join(', ') : "No toppings
+                        selected" %>
                 </p>
                 <p><strong>Condiments:</strong>
-                    <%= result.condiments.length> 0 ? result.condiments.join(', ') : "No condiments selected" %>
+                    <%= (result.condiments && result.condiments.length> 0) ? result.condiments.join(', ') : "No
+                        condiments selected" %>
                 </p>
 
                 <!-- Update Form -->
