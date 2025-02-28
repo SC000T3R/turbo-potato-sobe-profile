@@ -1,7 +1,7 @@
 
 const express = require('express')
 require('dotenv').config()
-const { MongoCLient, ServerApiVersion, ObjectId } = require('mongodb');
+const {MongoClient, ObjectId } = require('mongodb');
 const app = express()
 const uri = process.env.MONGO_URI;
 const port = process.env.PORT || 4444;
@@ -39,7 +39,7 @@ app.get('/', async function (req, res) {
   res.render('indexy', 
     { profileData : results} ); 
 
-})
+});
 
 app.post('/insert', async (req,res)=> {
 
