@@ -71,18 +71,18 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Choose Your Toppings</label><br>
-                <input type="checkbox" name="toppings" value="Lettuce"> Lettuce<br>
-                <input type="checkbox" name="toppings" value="Tomato"> Tomato<br>
-                <input type="checkbox" name="toppings" value="Pickles"> Pickles<br>
-                <input type="checkbox" name="toppings" value="Onions"> Onions<br>
+                <input type="checkbox" name="toppings[]" value="Lettuce"> Lettuce<br>
+                <input type="checkbox" name="toppings[]" value="Tomato"> Tomato<br>
+                <input type="checkbox" name="toppings[]" value="Pickles"> Pickles<br>
+                <input type="checkbox" name="toppings[]" value="Onions"> Onions<br>
             </div>
             <div class="mb-3">
                 <label class="form-label">Choose Your Condiments</label><br>
-                <input type="checkbox" name="condiments" value="Ketchup"> Ketchup<br>
-                <input type="checkbox" name="condiments" value="Mustard"> Mustard<br>
-                <input type="checkbox" name="condiments" value="Mayo"> Mayo<br>
-                <input type="checkbox" name="condiments" value="BBQ Sauce"> BBQ Sauce<br>
-                <input type="checkbox" name="condiments" value="Hot Sauce"> Hot Sauce<br>
+                <input type="checkbox" name="condiments[]" value="Ketchup"> Ketchup<br>
+                <input type="checkbox" name="condiments[]" value="Mustard"> Mustard<br>
+                <input type="checkbox" name="condiments[]" value="Mayo"> Mayo<br>
+                <input type="checkbox" name="condiments[]" value="BBQ Sauce"> BBQ Sauce<br>
+                <input type="checkbox" name="condiments[]" value="Hot Sauce"> Hot Sauce<br>
             </div>
 
             <button type="submit" class="btn btn-success">Build My Sandwich</button>
@@ -117,13 +117,13 @@
                 <form method="POST" action="/update/">
                     <input name="updateTitle" value="<%= result.title %>" type="text">
                     <input name="updatePost" value="<%= result.post %>" type="text">
-                    <input type="hidden" name="updateId" value="<%=result._id %>">
+                    <input type="hidden" name="updateId" value="<%= result._id %>">
                     <button class="btn btn-warning" type="submit">Update</button>
                 </form>
 
                 <!-- Delete Form -->
                 <form method="POST" action="/delete/">
-                    <input type="hidden" name="deleteId" value="<%=result._id %>">
+                    <input type="hidden" name="deleteId" value="<%= result._id %>">
                     <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </div>
