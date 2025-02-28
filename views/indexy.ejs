@@ -36,7 +36,7 @@
 
     <div class="container mt-4">
         <h1 class="text-center">Create a Sandwich that is connected to your name!</h1>
-        <form id="sandwichForm" class="mt-3">
+        <form id="sandwichForm" method="POST" action="/insert" class="mt-3">
             <div class="mb-3">
                 <label for="inputName" class="form-label">Your Name</label>
                 <input type="text" id="inputName" name="name" class="form-control" placeholder="Enter your name"
@@ -46,59 +46,89 @@
                 <label for="inputBread" class="form-label">Choose Your Bread</label>
                 <select id="inputBread" name="bread" class="form-select" required>
                     <option selected disabled>Pick your bread...</option>
+                    <option value="Whole Wheat">Whole Wheat</option>
+                    <option value="White">White</option>
+                    <option value="Sourdough">Sourdough</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="inputProtein" class="form-label">Choose Your Protein</label>
                 <select id="inputProtein" name="protein" class="form-select" required>
                     <option selected disabled>Pick your protein...</option>
+                    <option value="Chicken">Chicken</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Tofu">Tofu</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="inputCheese" class="form-label">Choose Your Cheese</label>
                 <select id="inputCheese" name="cheese" class="form-select" required>
                     <option selected disabled>Pick your cheese...</option>
+                    <option value="Cheddar">Cheddar</option>
+                    <option value="Swiss">Swiss</option>
+                    <option value="Provolone">Provolone</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Choose Your Toppings</label><br>
-                <!-- This is where we will dynamically populate the toppings checkboxes -->
-                <div id="inputToppings"></div>
+                <input type="checkbox" name="toppings" value="Lettuce"> Lettuce<br>
+                <input type="checkbox" name="toppings" value="Tomato"> Tomato<br>
+                <input type="checkbox" name="toppings" value="Pickles"> Pickles<br>
+                <input type="checkbox" name="toppings" value="Onions"> Onions<br>
             </div>
             <div class="mb-3">
                 <label class="form-label">Choose Your Condiments</label><br>
-                <button type="button" class="btn btn-outline-success condiment-btn" id="ketchupBtn">Ketchup</button>
-                <button type="button" class="btn btn-outline-success condiment-btn" id="mustardBtn">Mustard</button>
-                <button type="button" class="btn btn-outline-success condiment-btn" id="mayoBtn">Mayo</button>
-                <button type="button" class="btn btn-outline-success condiment-btn" id="bbqBtn">BBQ Sauce</button>
-                <button type="button" class="btn btn-outline-success condiment-btn" id="hotSauceBtn">Hot Sauce</button>
+                <input type="checkbox" name="condiments" value="Ketchup"> Ketchup<br>
+                <input type="checkbox" name="condiments" value="Mustard"> Mustard<br>
+                <input type="checkbox" name="condiments" value="Mayo"> Mayo<br>
+                <input type="checkbox" name="condiments" value="BBQ Sauce"> BBQ Sauce<br>
+                <input type="checkbox" name="condiments" value="Hot Sauce"> Hot Sauce<br>
             </div>
 
             <button type="submit" class="btn btn-success">Build My Sandwich</button>
         </form>
+
         <div id="successMessage" class="mt-4 text-center"></div>
     </div>
 
-    <!-- Section to display MongoDB posts -->
-    <div class="container mt-5">
+    <main>
         <% profileData.forEach(result=> { %>
             <div class="col-md-8">
+                <h3>
+                    <%= result.name %>'s Sandwich
+                </h3>
+                <p><strong>Bread:</strong>
+                    <%= result.bread %>
+                </p>
+                <p><strong>Protein:</strong>
+                    <%= result.protein %>
+                </p>
+                <p><strong>Cheese:</strong>
+                    <%= result.cheese %>
+                </p>
+                <p><strong>Toppings:</strong>
+                    <%= result.toppings.length> 0 ? result.toppings.join(', ') : "No toppings selected" %>
+                </p>
+                <p><strong>Condiments:</strong>
+                    <%= result.condiments.length> 0 ? result.condiments.join(', ') : "No condiments selected" %>
+                </p>
+
                 <!-- Update Form -->
                 <form method="POST" action="/update/">
-                    <input name="updateTitle" value="<%= result.title %>" class="form-control mb-2">
-                    <input name="updatePost" value="<%= result.post %>" class="form-control mb-2">
-                    <input type="hidden" name="updateId" value="<%= result._id %>">
-                    <button class="btn btn-warning" role="submit">Update</button>
+                    <input name="updateTitle" value="<%= result.title %>" type="text">
+                    <input name="updatePost" value="<%= result.post %>" type="text">
+                    <input type="hidden" name="updateId" value="<%=result._id %>">
+                    <button class="btn btn-warning" type="submit">Update</button>
                 </form>
 
                 <!-- Delete Form -->
                 <form method="POST" action="/delete/">
-                    <input type="hidden" name="deleteId" value="<%= result._id %>">
-                    <button class="btn btn-danger" role="submit">Delete</button>
+                    <input type="hidden" name="deleteId" value="<%=result._id %>">
+                    <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </div>
             <% }); %>
-    </div>
+    </main>
 
     <footer class="footer text-center mt-4">
         <p>&copy; Namewich 2024, All rights reserved to Luke Hester</p>
