@@ -1,11 +1,10 @@
 
 const express = require('express')
 require('dotenv').config()
-const shajs = require('sha.js')
 const app = express()
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URI;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4444;
 const bodyParser = require('body-parser')
 
 app.set('view engine', 'ejs');
@@ -31,7 +30,7 @@ function initProfileData() {
     post: "this is the post"
   });
 
-}
+// }
 
 app.get('/', async function (req, res) {
   
