@@ -1,7 +1,7 @@
 
 const express = require('express')
 require('dotenv').config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
 const app = express();
 const uri = process.env.MONGO_URI;
 
@@ -24,62 +24,62 @@ const client = new MongoClient(process.env.MONGO_URI, {
 
 const mongoCollection = client.db("scooter-turbo-potato-sobe-profile").collection("scooter-turbo-potato-sobe-profile");
 
-function initProfileData() {
-
-  mongoCollection.insertOne({
+async function initProfileData() {
+  await mongoCollection.insertOne({
     title: "this is blog title",
     post: "this is the post"
   });
+}
 
-  // }
+// }
 
-  app.get('/', async function (req, res) {
+app.get('/', async function (req, res) {
 
-    let results = await mongoCollection.find({}).toArray();
+  let results = await mongoCollection.find({}).toArray();
 
-    res.render('indexy',
-      { profileData: results })
+  res.render('indexy',
+    { profileData: results })
 
+});
+
+app.post('/insert', async (req, res) => {
+
+  let results = await mongoCollection.insertOne({
+    title: req.body.title,
+    post: req.body.post
   });
 
-  app.post('/insert', async (req, res) => {
+  res.redirect('/');
 
-    let results = await mongoCollection.insertOne({
-      title: req.body.title,
-      post: req.body.post
-    });
+});
+app.post('/delete', async function (req, res) {
+
+  let result = await mongoCollection.findOneAndDelete(
+    {
+      "_id": new ObjectId(req.body.deleteId)
+    }
+  ).then(result => {
 
     res.redirect('/');
+  })
 
-  });
-  app.post('/delete', async function (req, res) {
+});
 
-    let result = await mongoCollection.findOneAndDelete(
-      {
-        "_id": new ObjectId(req.body.deleteId)
-      }
-    ).then(result => {
-
-      res.redirect('/');
-    })
-
-  });
-
-  app.post('/update', async (req, res) => {
-    let result = await mongoCollection.findOneAndUpdate(
-      { _id: ObjectId.createFromHexString(req.body.updateId) }, {
-      $set:
-      {
-        title: req.body.updateTitle,
-        post: req.body.updatePost
-      }
+app.post('/update', async (req, res) => {
+  let result = await mongoCollection.findOneAndUpdate(
+    { _id: ObjectId.createFromHexString(req.body.updateId) }, {
+    $set:
+    {
+      title: req.body.updateTitle,
+      post: req.body.updatePost
     }
-    ).then(result => {
-      console.log(result);
-      res.redirect('/');
-    })
-  });
+  }
+  ).then(result => {
+    console.log(result);
+    res.redirect('/');
+  })
+});
 
-  app.listen(port, () => console.log(`server is running on ... localhost:${port}`));
-}
+app.listen(port, () => console.log(`server is running on ... localhost:${port}`));
+
 
