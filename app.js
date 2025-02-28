@@ -11,8 +11,7 @@ const bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
-// const path = require('path)
-//app.use(express.static(__dirname + `/public`))
+
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -22,127 +21,63 @@ const client = new MongoClient(uri, {
   }
 })
 
-console.log(shajs('sha256').update('cat').digest('hex'));
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-// run().catch(console.dir);
+const mongoCollection = client.db("scooter-turbo-potato-sobe-profile").collection("scooter-turbo-potato-sobe-profile"); 
 
-async function getData() {
-  await client.connect();
-  let collection = await client.db("guitar-app-database").collection("guitar-app-songs");
+function initProfileData() {
 
-  let results = await collection.find({}).toArray();
-
-  console.log(results);
-  return results;
+  mongoCollection.insertOne({ 
+    title: "this is blog title",
+    post: "this is the post"
+  });
 
 }
 
-app.get('/read', async function (req, res) {
-  let getDataResults = await getData();
-  console.log(getDataResults);
-  res.render('songs', 
-    { songData : getDataResults} );
-
-})
-
-
-
-async function getData() {
+app.get('/', async function (req, res) {
   
-  await client.connect();
-  let collection = await client.db("luke-turbo-potato-sobie-profile").collection("luke-turbo-potato-sobie-profile");
+  let results = await mongoCollection.find({}).toArray(); 
   
-  let results = await collection.find({}).toArray();
+  res.render('profile', 
+    { profileData : results} ); 
+
+})
+
+app.post('/insert', async (req,res)=> {
+
+  let results = await mongoCollection.insertOne({ 
+    title: req.body.title,
+    post: req.body.post
+  });
+
+  res.redirect('/');
+
+}); 
+app.post('/delete', async function (req, res) {
   
-  console.log(results);
+    let result = await mongoCollection.findOneAndDelete( 
+    {
+      "_id": new ObjectId(req.body.deleteId)
+    }
+  ).then(result => {
+    
+    res.redirect('/');
+  })
 
-  return results;
-  
-    // res.send(results).status(200);
+}); 
 
-}
-
-getData();
-
-app.get('/read', async function (req, res) {
-  let getDataResults = await getData();
-  console.log(getDataResults);
-  res.render('songs', { songData : getDataResults} );
+app.post('/update', async (req,res)=>{
+  let result = await mongoCollection.findOneAndUpdate( 
+  {_id: ObjectId.createFromHexString(req.body.updateId)}, { 
+    $set: 
+      {
+        title : req.body.updateTitle, 
+        post : req.body.updatePost 
+      }
+     }
+  ).then(result => {
+  console.log(result); 
+  res.redirect('/');
 })
+}); 
 
-
-
-
-
-app.get('/', function (req, res) {
-  res.sendFile('index.html')
-})
-
-app.post('/saveMyName', (req,res)=>{
-  console.log('did we hit the endpoint?');
-  
-  console.log(req.body);
-
-  res.render('indexy', {pageTitle: req.body.myName});
-})
-
-app.get('/saveMyNameGet', (req,res)=>{
-  console.log('did we hit the endpoint?');
-
-  console.log(req.query);
-
-  let reqName = req.query.myNameGet;
-
-  res.render('indexy', {pageTitle: reqName});
-})
-
-
-
-app.get('/nodemon', function (req, res) {
-  res.send('look ma, no kill process')
-})
-
-
-// //endpoint, middleware(s)
-app.get('/helloRender', function (req, res) {
-  res.send('Hello Express from Real World<br><a href="/">back to home</a>')
-})
-
-app.get('/ejs', function (req, res) {
-  res.render('indexy', {pageTitle: 'my ejs page'});
-})
-
-
-app.listen(
-  port, 
-  ()=> console.log(
-    `server is running on ... localhost:${port}`
-  )
-);
-
-//ejs stuff
-// app.get('/ejs', async (req, res) => {
- 
-//   await client.connect();
-//   let result = await client.db("barrys-db").collection("whatever-collection").find({}).toArray();
-
-//   console.log(result);
-
-//   res.render('indexy', {
-//     ejsResult : result
-//   });
-// });
-
-app.listen(3000)
+app.listen(port, ()=> console.log(`server is running on ... localhost:${port}`) );

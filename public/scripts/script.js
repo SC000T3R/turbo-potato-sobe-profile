@@ -4,3 +4,5 @@ $( document ).ready(function() {
   
   //more code here...
 });
+
+console.log("Luke Hester's Web Profile")

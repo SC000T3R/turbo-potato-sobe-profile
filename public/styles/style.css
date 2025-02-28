@@ -3,15 +3,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="36" height="72" viewBox="0 0 36 72"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+  font-family: 'Arial', sans-serif;
+  background-color: #fefefe;
+  color: #333;
 }
 
-li {
-  font-family: "Ubuntu Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
+h1 {
+  color: #bf360c;
 }
 
-/* use # to prefix css selector for dom/html element id attribute */
-#songList {
-  background-color: #CE93D8;}
+.navbar {
+  background-color: #bf360c;
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+.navbar .nav-link {
+  color: #ffffff !important;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.card {
+  border: 1px solid #bf360c;
+  background-color: #ffecb3;
+}
+
+.form-label {
+  color: #bf360c;
+  font-weight: bold;
+}
+
+select, input {
+  border: 1px solid #bf360c;
+  border-radius: 4px;
+}
+
+input:focus, select:focus {
+  border-color: #e65100;
+  box-shadow: 0 0 5px rgba(191, 54, 12, 0.5);
+}
+
+button {
+  background-color: #bf360c;
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e65100;
+}
+
+footer {
+  background-color: #bf360c;
+  color: white;
+  padding: 15px;
+}
+.btn-outline-success {
+  border: 2px solid #004d00;
+  color: #004d00;
+}
+
+.btn-success {
+  background-color: #004d00;
+  border-color: #004d00;
+  color: white;
+}
+
+.btn-success:hover, .btn-outline-success:hover {
+  background-color: #006600;
+  border-color: #006600;
+}
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.form-check {
+  margin-bottom: 8px;
+}
+
+
+button.condiment-btn {
+  margin-right: 5px;
+}
+
+
+.bg-faded-orange {
+  background-color: #ffcc99;
+  border-radius: 8px;
+  border: 1px solid #ff9966;
+}
