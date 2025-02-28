@@ -2,7 +2,7 @@
 const express = require('express')
 require('dotenv').config()
 const app = express()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const uri = process.env.MONGO_URI;
 const port = process.env.PORT || 4444;
 const bodyParser = require('body-parser')
@@ -36,7 +36,7 @@ app.get('/', async function (req, res) {
   
   let results = await mongoCollection.find({}).toArray(); 
   
-  res.render('profile', 
+  res.render('indexy', 
     { profileData : results} ); 
 
 })
