@@ -23,8 +23,7 @@
                         <a class="nav-link" href="https://github.com/SC000T3R" target="_blank">My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/SC000T3R/dev-harry-final-project"
-                            target="_blank">Source Code</a>
+                        <a class="nav-link" href="https://github.com/SC000T3R/dev-harry-final-project" target="_blank">Source Code</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://validator.nu/" target="_blank">Nu Validator</a>
@@ -92,27 +91,19 @@
     </div>
 
     <main>
-        <% profileData.forEach(result=> { %>
+        <% profileData.forEach(result => { %>
             <div class="col-md-8">
                 <h3>
                     <%= result.name %>'s Sandwich
                 </h3>
-                <p><strong>Bread:</strong>
-                    <%= result.bread %>
+                <p><strong>Bread:</strong> <%= result.bread %></p>
+                <p><strong>Protein:</strong> <%= result.protein %></p>
+                <p><strong>Cheese:</strong> <%= result.cheese %></p>
+                <p><strong>Toppings:</strong> 
+                    <%= (result.toppings && result.toppings.length > 0) ? result.toppings.join(', ') : "No toppings selected" %>
                 </p>
-                <p><strong>Protein:</strong>
-                    <%= result.protein %>
-                </p>
-                <p><strong>Cheese:</strong>
-                    <%= result.cheese %>
-                </p>
-                <p><strong>Toppings:</strong>
-                    <%= (result.toppings && result.toppings.length> 0) ? result.toppings.join(', ') : "No toppings
-                        selected" %>
-                </p>
-                <p><strong>Condiments:</strong>
-                    <%= (result.condiments && result.condiments.length> 0) ? result.condiments.join(', ') : "No
-                        condiments selected" %>
+                <p><strong>Condiments:</strong> 
+                    <%= (result.condiments && result.condiments.length > 0) ? result.condiments.join(', ') : "No condiments selected" %>
                 </p>
 
                 <!-- Update Form -->
@@ -129,7 +120,7 @@
                     <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </div>
-            <% }); %>
+        <% }); %>
     </main>
 
     <footer class="footer text-center mt-4">
