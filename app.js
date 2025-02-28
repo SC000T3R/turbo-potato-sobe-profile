@@ -4,7 +4,7 @@ require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 const uri = process.env.MONGO_URI;
-console.log('Mongo URI:', uri);
+
 const port = process.env.PORT || 4444;
 const bodyParser = require('body-parser');
 
